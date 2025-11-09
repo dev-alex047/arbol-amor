@@ -179,20 +179,73 @@ body {
 
 /* Responsivo para móviles: la caja ocupa casi todo el ancho arriba del árbol */
 @media (max-width: 700px) {
+
+  /* El contenedor de contadores VA EN EL FLUJO, no fijo */
+  .countdown-wrapper {
+    position: sticky;                 /* se queda “pegado” al top cuando haces scroll */
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    right: auto; left: auto;
+    margin: 8px auto 14px auto;
+    max-width: 92vw;
+    z-index: 3;
+  }
+
+  /* La dedicatoria ya no es absolute: que ocupe todo el ancho y baje sola */
   .dedication-text {
-    left: 50%;
-    right: auto;
-    top: 8%;
-    transform: translateX(-50%) translateY(0);
-    min-width: 0;
-    max-width: 95vw;
-    width: 95vw;
-    font-size: 1.1rem;
-    padding: 0.7em 0.7em 0.7em 0.7em;
+    position: relative;
+    top: auto; left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto 16px auto;         /* espacio abajo */
+    min-width: 0; max-width: 92vw; width: 92vw;
+    font-size: 1rem;
+    padding: 12px 14px;
+    z-index: 2;
   }
-  .signature {
-    font-size: 1.3rem;
+
+  .signature { font-size: 1.1rem; }
+
+  /* El árbol centrado dentro del flujo (no absolute) */
+  .tree-container {
+    position: relative;
+    top: auto; left: auto;
+    transform: none;
+    width: 78vw !important;
+    height: 78vw !important;
+    margin: 12px auto 18px auto;
+    z-index: 1;
   }
+
+  /* Si añadiste animación de “move-and-scale”, que en móvil NO empuje */
+  .tree-container svg.move-and-scale {
+    transform: scale(1.05);            /* sin translate para que no tape nada */
+  }
+
+  /* Contador inferior también en flujo (evita tapar texto) */
+  .countdown,
+  #meeting-countdown {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    margin: 10px auto 0 auto;
+    min-width: 0; max-width: 92vw;
+    opacity: 1;                        /* visibles sin transición de aparición si quieres */
+  }
+
+  /* Botones más pequeños y dentro del área segura de iOS */
+  #heart-btn, #music-btn {
+    position: fixed;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    font-size: 1.6rem;
+    padding: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.2);
+    z-index: 4;
+  }
+  #heart-btn { right: 16px; }
+  #music-btn { left: 16px; }
+
+  /* Evita que los pétalos tapen el texto de cabecera */
+  #floating-objects { z-index: 0; }
 }
 /* === Ajustes nuevos: contadores y botón del corazón === */
 
